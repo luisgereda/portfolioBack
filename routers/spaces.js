@@ -22,8 +22,7 @@ router.get("/countries", async (req, res, next) => {
 router.get("/photos", async (req, res, next) => {
   try {
     const allPhotos = await Photos.findAll({
-      include: { model: CountrySpace },
-      include: { model: RestaurantSpace },
+      include: [{ model: CountrySpace }, { model: RestaurantSpace }],
     });
     console.log(allPhotos);
     res.send(allPhotos);
