@@ -5,12 +5,15 @@ const RestaurantSpace = require("../models").restSpace;
 const Reviews = require("../models").reviews;
 const Categories = require("../models").category;
 const RestCategories = require("../models").restcategories;
+const User = require("../models").user;
 
 const router = new Router();
 
 router.get("/countries", async (req, res, next) => {
   try {
-    const allCountries = await CountrySpace.findAll({ include: Photos });
+    const allCountries = await CountrySpace.findAll({
+      include: [{ model: Photos, include: { model: User } }],
+    });
     console.log(allCountries);
     res.send(allCountries);
   } catch (e) {
@@ -22,7 +25,11 @@ router.get("/countries", async (req, res, next) => {
 router.get("/photos", async (req, res, next) => {
   try {
     const allPhotos = await Photos.findAll({
-      include: [{ model: CountrySpace }, { model: RestaurantSpace }],
+      include: [
+        { model: CountrySpace },
+        { model: RestaurantSpace },
+        { model: User },
+      ],
     });
     console.log(allPhotos);
     res.send(allPhotos);
