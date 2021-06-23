@@ -10,7 +10,7 @@ async function getUsersfavorite() {
 //getUsersfavorite().then((lists) => console.log(lists));
 
 async function getUsers() {
-  const list = await user.findAll({ include: { model: reviews } });
+  const list = await user.findAll({ include: { model: photos } });
 
   return list.map((list) => list.get({ plain: true }));
 }
@@ -31,4 +31,4 @@ async function restSpacesP() {
   return rest.map((list) => list.get({ plain: true }));
 }
 
-restSpacesP().then((lists) => console.log(lists));
+//restSpacesP().then((lists) => console.log(lists));
