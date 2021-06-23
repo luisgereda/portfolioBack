@@ -81,7 +81,7 @@ router.get("/mydata", authMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/deletephoto/:id", async (req, res) => {
+router.delete("/deletephoto/:id", authMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
     //  const { userId } = req.user;
