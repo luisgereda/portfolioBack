@@ -14,6 +14,8 @@ module.exports = {
           model: "restSpaces",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       categoryId: {
         type: Sequelize.INTEGER,
@@ -21,6 +23,8 @@ module.exports = {
           model: "categories",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,

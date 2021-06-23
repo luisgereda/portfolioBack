@@ -23,7 +23,7 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING,
       },
-      starts: {
+      stars: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

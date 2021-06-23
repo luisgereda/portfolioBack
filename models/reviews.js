@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       review: { type: DataTypes.TEXT, allowNull: false },
       date: { type: DataTypes.STRING, allowNull: false },
       imageUrl: DataTypes.STRING,
-      starts: { type: DataTypes.INTEGER, allowNull: false },
+      stars: { type: DataTypes.INTEGER, allowNull: false },
       userId: DataTypes.INTEGER,
       restSpaceId: DataTypes.INTEGER,
     },

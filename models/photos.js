@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       photos.belongsTo(models.restSpace);
       photos.belongsTo(models.countrySpace);
       photos.belongsToMany(models.user, {
-        through: "favoritePhotos",
+        through: "favoritephotos",
         foreignKey: "photosId",
       });
     }

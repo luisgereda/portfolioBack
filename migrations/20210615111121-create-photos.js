@@ -37,6 +37,7 @@ module.exports = {
       restSpaceId: {
         type: Sequelize.INTEGER,
         references: { model: "restSpaces", key: "id" },
+        defaultValue: null,
       },
       countrySpaceId: {
         type: Sequelize.INTEGER,
@@ -44,6 +45,7 @@ module.exports = {
           model: "countrySpaces",
           key: "id",
         },
+        defaultValue: null,
       },
       createdAt: {
         allowNull: false,

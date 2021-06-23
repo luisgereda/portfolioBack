@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
       });
       user.belongsToMany(models.photos, {
-        through: "favoritePhotos",
+        through: "favoritephotos",
         foreignKey: "userId",
       });
     }

@@ -6,7 +6,7 @@ module.exports = {
       {
         title: "amazing food",
         review: "I went with my GF, it was nice",
-        starts: 4,
+        stars: 4,
         userId: 1,
         restSpaceId: 1,
         date: "jun 2021",
@@ -16,7 +16,7 @@ module.exports = {
       {
         title: "missing something",
         review: "didn't like it",
-        starts: 1,
+        stars: 1,
         userId: 1,
         restSpaceId: 2,
         date: "december 2020",

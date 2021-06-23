@@ -4,6 +4,9 @@ const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models/").user;
 const { SALT_ROUNDS } = require("../config/const");
+const Photos = require("../models").photos;
+const Review = require("../models").reviews;
+const Country = require("../models").countrySpace;
 
 const router = new Router();
 
@@ -35,17 +38,16 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email, password, name, isArtist } = req.body;
-  if (!email || !password || !name) {
+  const { email, password, name, country } = req.body;
+  if (!email || !password || !name || !country) {
     return res.status(400).send("Please provide an email, password and a name");
   }
-
   try {
     const newUser = await User.create({
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
       name,
-      isArtist,
+      country,
     });
 
     delete newUser.dataValues["password"];
@@ -67,6 +69,77 @@ router.post("/signup", async (req, res) => {
 router.get("/me", authMiddleware, async (req, res) => {
   delete req.user.dataValues["password"];
   res.status(200).send({ ...req.user.dataValues });
+});
+
+router.get("/mydata", authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.user;
+    const data = await User.findByPk(parseInt(id), { include: Photos });
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.delete("/deletephoto/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    //  const { userId } = req.user;
+    const toDelete = await Photos.findByPk(parseInt(id));
+    const deleted = await toDelete.destroy();
+    // const data = await User.findByPk(parseInt(userId), { include: Photos });
+    res.json(deleted);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/restaurant/review", authMiddleware, async (req, res) => {
+  try {
+    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
+    const newReview = await Review.create(req.body);
+    res.send(newReview);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/restaurant/photos", authMiddleware, async (req, res) => {
+  try {
+    //const {title, description, city, imageUrl, hearts, userId, restSpaceId}
+    const newPhoto = await Photos.create(req.body);
+    res.json(newPhoto);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/country/photos", authMiddleware, async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      city,
+      imageUrl,
+      country,
+      userId,
+      countrySpaceId,
+    } = req.body;
+    if (!country) {
+      NewPhoto = await Photos.create(req.body);
+      res.json(NewPhoto);
+    } else {
+      newCountry = await Country.create({ name: country });
+      newCountrySpaceId = newCountry.id;
+      NewPhoto = await Photos.create({
+        countrySpaceId: newCountrySpaceId,
+        ...req.body,
+      });
+      res.json(newCountry);
+    }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 module.exports = router;
