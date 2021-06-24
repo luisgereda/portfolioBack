@@ -39,6 +39,42 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        title: "Nazka",
+        description: "Nazka en Amsterdam",
+        city: "Amsterdam",
+        hearts: 0,
+        userId: 1,
+        restSpaceId: 4,
+        imageUrl:
+          "https://www.entreemagazine.nl/sites/default/files/afbeeldingen/stijl_en_design/Nazka2.jpg",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: "Nazka",
+        description: "Ceviche Nazka",
+        city: "Amsterdam",
+        hearts: 0,
+        userId: 1,
+        restSpaceId: 4,
+        imageUrl:
+          "https://www.amsterdamfoodie.nl/wp-content/uploads/2019/08/NAZKA-Amsterdam-ceviche.jpg",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        title: "Casa Peru",
+        description: "Casa Peru Amsterdam",
+        city: "Amsterdam",
+        hearts: 0,
+        userId: 1,
+        restSpaceId: 3,
+        imageUrl:
+          "https://media-cdn.tripadvisor.com/media/photo-s/10/84/e5/77/corner-building.jpg",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
     /**
      * Add seed commands here.

@@ -35,6 +35,8 @@ module.exports = (sequelize, DataTypes) => {
       verified: { type: DataTypes.BOOLEAN, defaultValue: false },
       userId: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
+      latitude: DataTypes.FLOAT,
+      longitude: DataTypes.FLOAT,
     },
     {
       sequelize,
