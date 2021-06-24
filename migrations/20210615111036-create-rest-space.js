@@ -40,6 +40,14 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
+      latitude: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
+      longitude: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+      },
       userId: {
         type: Sequelize.INTEGER,
         references: {
