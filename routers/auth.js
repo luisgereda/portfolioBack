@@ -74,7 +74,9 @@ router.get("/me", authMiddleware, async (req, res) => {
 router.get("/mydata", authMiddleware, async (req, res) => {
   try {
     const { id } = req.user;
-    const data = await User.findByPk(parseInt(id), { include: Photos });
+    const data = await User.findByPk(parseInt(id), {
+      include: [{ model: Photos, as: "photos" }],
+    });
     res.send(data);
   } catch (e) {
     console.log(e);

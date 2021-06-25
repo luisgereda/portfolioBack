@@ -4,7 +4,6 @@ const Photos = require("../models").photos;
 const RestaurantSpace = require("../models").restSpace;
 const Reviews = require("../models").reviews;
 const Categories = require("../models").category;
-const RestCategories = require("../models").restcategories;
 const User = require("../models").user;
 
 const router = new Router();
@@ -12,7 +11,7 @@ const router = new Router();
 router.get("/countries", async (req, res, next) => {
   try {
     const allCountries = await CountrySpace.findAll({
-      include: [{ model: Photos, include: { model: User } }],
+      include: [{ model: Photos, include: { model: User, as: "photos" } }],
     });
     console.log(allCountries);
     res.send(allCountries);
@@ -25,13 +24,8 @@ router.get("/countries", async (req, res, next) => {
 router.get("/photos", async (req, res, next) => {
   try {
     const allPhotos = await Photos.findAll({
-      include: [
-        { model: CountrySpace },
-        { model: RestaurantSpace },
-        { model: User },
-      ],
+      include: [{ model: CountrySpace }, { model: RestaurantSpace }],
     });
-    console.log(allPhotos);
     res.send(allPhotos);
   } catch (e) {
     console.log(e);
@@ -55,7 +49,7 @@ router.get("/restaurants/:id", async (req, res, next) => {
     const allRestaurants = await RestaurantSpace.findByPk(id, {
       include: [
         Photos,
-        Reviews,
+        { model: Reviews, include: User },
         { model: Categories, attributes: ["cuisine"] },
       ],
     });
