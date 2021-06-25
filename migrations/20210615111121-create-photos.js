@@ -33,10 +33,14 @@ module.exports = {
           model: "users",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       restSpaceId: {
         type: Sequelize.INTEGER,
         references: { model: "restSpaces", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
         defaultValue: null,
       },
       countrySpaceId: {
@@ -46,6 +50,8 @@ module.exports = {
           key: "id",
         },
         defaultValue: null,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,

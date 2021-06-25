@@ -33,6 +33,8 @@ module.exports = {
           model: "users",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       restSpaceId: {
         type: Sequelize.INTEGER,
@@ -40,6 +42,8 @@ module.exports = {
           model: "restSpaces",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,
