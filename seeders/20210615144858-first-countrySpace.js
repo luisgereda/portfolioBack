@@ -5,16 +5,19 @@ module.exports = {
     await queryInterface.bulkInsert("countrySpaces", [
       {
         name: "Peru",
+        logo: "https://res.cloudinary.com/dyzzo8hq1/image/upload/v1625528015/logoperu_wrqmqp.png",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Netherlands",
+        logo: "https://res.cloudinary.com/dyzzo8hq1/image/upload/v1625528016/logoholanda_dep4rq.png",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Spain",
+        logo: "https://res.cloudinary.com/dyzzo8hq1/image/upload/v1625528015/spainlogo_k8nysi.png",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -22,11 +22,16 @@ router.get("/countries", async (req, res, next) => {
 });
 
 router.get("/photos", async (req, res, next) => {
+  const limit = Math.min(req.query.limit || 12, 500);
+  const offset = req.query.offset || 0;
   try {
-    const allPhotos = await Photos.findAll({
+    const allPhotos = await Photos.findAndCountAll({
+      limit,
+      offset,
       include: [{ model: CountrySpace }, { model: RestaurantSpace }],
+      order: [["createdAt", "DESC"]],
     });
-    res.send(allPhotos);
+    res.send({ images: allPhotos.rows, total: allPhotos.count });
   } catch (e) {
     console.log(e);
     next();

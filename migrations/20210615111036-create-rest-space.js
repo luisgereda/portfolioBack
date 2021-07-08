@@ -30,6 +30,10 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
+      photo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       website: {
         type: Sequelize.STRING,
       },

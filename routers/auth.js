@@ -76,6 +76,7 @@ router.get("/mydata", authMiddleware, async (req, res) => {
     const { id } = req.user;
     const data = await User.findByPk(parseInt(id), {
       include: [{ model: Photos, as: "photos" }],
+      order: [[Photos, "createdAt", "DESC"]],
     });
     res.send(data);
   } catch (e) {
