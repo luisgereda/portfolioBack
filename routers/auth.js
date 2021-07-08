@@ -135,13 +135,16 @@ router.post("/country/photos", authMiddleware, async (req, res) => {
       NewPhoto = await Photos.create(req.body);
       res.json(NewPhoto);
     } else {
-      newCountry = await Country.create({ name: country, logo: country });
+      newCountry = await Country.create({ name: country });
       newCountrySpaceId = newCountry.id;
       NewPhoto = await Photos.create({
         countrySpaceId: newCountrySpaceId,
         ...req.body,
       });
-      res.json(newCountry);
+      const countryComplete = await Country.findByPk(newCountrySpaceId, {
+        include: Photos,
+      });
+      res.json(countryComplete);
     }
   } catch (e) {
     console.log(e);
