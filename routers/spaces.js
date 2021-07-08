@@ -57,6 +57,7 @@ router.get("/restaurants/:id", async (req, res, next) => {
         { model: Reviews, include: User },
         { model: Categories, attributes: ["cuisine"] },
       ],
+      order: [[Reviews, "createdAt", "DESC"]],
     });
     console.log(allRestaurants);
     res.send(allRestaurants);

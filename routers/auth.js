@@ -101,7 +101,10 @@ router.post("/restaurant/review", authMiddleware, async (req, res) => {
   try {
     //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
     const newReview = await Review.create(req.body);
-    res.send(newReview);
+    const completeReview = await Review.findByPk(newReview.id, {
+      include: User,
+    });
+    res.send(completeReview);
   } catch (e) {
     console.log(e);
   }
@@ -132,7 +135,7 @@ router.post("/country/photos", authMiddleware, async (req, res) => {
       NewPhoto = await Photos.create(req.body);
       res.json(NewPhoto);
     } else {
-      newCountry = await Country.create({ name: country });
+      newCountry = await Country.create({ name: country, logo: country });
       newCountrySpaceId = newCountry.id;
       NewPhoto = await Photos.create({
         countrySpaceId: newCountrySpaceId,
