@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       restSpace.hasMany(models.photos);
       restSpace.hasMany(models.reviews);
-      restSpace.belongsTo(models.user);
+      // restSpace.belongsTo(models.user);
       restSpace.belongsToMany(models.user, {
         through: "favoriteRestaurants",
         foreignKey: "restSpaceId",

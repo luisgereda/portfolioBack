@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       user.hasMany(models.photos, { foreignKey: "userId", as: "photos" });
       user.hasMany(models.reviews);
-      user.hasMany(models.restSpace);
+      // user.hasMany(models.restSpace);
       user.belongsToMany(models.restSpace, {
         through: "favoriteRestaurants",
         foreignKey: "userId",

@@ -7,6 +7,8 @@ const { SALT_ROUNDS } = require("../config/const");
 const Photos = require("../models").photos;
 const Review = require("../models").reviews;
 const Country = require("../models").countrySpace;
+const RestSpace = require("../models").restSpace;
+const FavoriteRestaurant = require("../models").favoriteRestaurant;
 
 const router = new Router();
 
@@ -75,7 +77,7 @@ router.get("/mydata", authMiddleware, async (req, res) => {
   try {
     const { id } = req.user;
     const data = await User.findByPk(parseInt(id), {
-      include: [{ model: Photos, as: "photos" }],
+      include: [{ model: Photos, as: "photos" }, { model: RestSpace }],
       order: [[Photos, "createdAt", "DESC"]],
     });
     res.send(data);
@@ -105,6 +107,38 @@ router.post("/restaurant/review", authMiddleware, async (req, res) => {
       include: User,
     });
     res.send(completeReview);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/:userId/:restId", authMiddleware, async (req, res) => {
+  try {
+    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
+    const { userId, restId } = req.params;
+    const newFav = await FavoriteRestaurant.create({
+      userId: userId,
+      restSpaceId: restId,
+    });
+    const favRest = await RestSpace.findByPk(restId);
+    res.send(favRest);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.delete("/:userId/:id", authMiddleware, async (req, res) => {
+  try {
+    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
+    const { userId, id } = req.params;
+    const toDelete = await FavoriteRestaurant.findOne({
+      where: {
+        userId: userId,
+        restSpaceId: id,
+      },
+    });
+    const deleted = await toDelete.destroy();
+    res.send(deleted);
   } catch (e) {
     console.log(e);
   }
