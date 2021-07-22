@@ -11,7 +11,7 @@ const router = new Router();
 router.get("/countries", async (req, res, next) => {
   try {
     const allCountries = await CountrySpace.findAll({
-      include: [{ model: Photos, include: { model: User, as: "photos" } }],
+      include: [{ model: Photos, include: { model: User, as: "user" } }],
     });
     console.log(allCountries);
     res.send(allCountries);
@@ -28,7 +28,11 @@ router.get("/photos", async (req, res, next) => {
     const allPhotos = await Photos.findAndCountAll({
       limit,
       offset,
-      include: [{ model: CountrySpace }, { model: RestaurantSpace }],
+      include: [
+        { model: CountrySpace },
+        { model: RestaurantSpace },
+        { model: User, as: "user" },
+      ],
       order: [["createdAt", "DESC"]],
     });
     res.send({ images: allPhotos.rows, total: allPhotos.count });
