@@ -112,39 +112,7 @@ router.post("/restaurant/review", authMiddleware, async (req, res) => {
   }
 });
 
-router.post("/:userId/:restId", authMiddleware, async (req, res) => {
-  try {
-    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
-    const { userId, restId } = req.params;
-    const newFav = await FavoriteRestaurant.create({
-      userId: userId,
-      restSpaceId: restId,
-    });
-    const favRest = await RestSpace.findByPk(restId);
-    res.send(favRest);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-router.delete("/:userId/:id", authMiddleware, async (req, res) => {
-  try {
-    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
-    const { userId, id } = req.params;
-    const toDelete = await FavoriteRestaurant.findOne({
-      where: {
-        userId: userId,
-        restSpaceId: id,
-      },
-    });
-    const deleted = await toDelete.destroy();
-    res.send(deleted);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-router.post("/restaurant/photos", authMiddleware, async (req, res) => {
+router.post("/restaurant/photos", async (req, res) => {
   try {
     //const {title, description, city, imageUrl, hearts, userId, restSpaceId}
     const newPhoto = await Photos.create(req.body);
@@ -180,6 +148,38 @@ router.post("/country/photos", authMiddleware, async (req, res) => {
       });
       res.json(countryComplete);
     }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.post("/:userId/:restId", authMiddleware, async (req, res) => {
+  try {
+    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
+    const { userId, restId } = req.params;
+    const newFav = await FavoriteRestaurant.create({
+      userId: userId,
+      restSpaceId: restId,
+    });
+    const favRest = await RestSpace.findByPk(restId);
+    res.send(favRest);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.delete("/:userId/:id", authMiddleware, async (req, res) => {
+  try {
+    //const {title, imageUrl, review, date, stars, userId, restSpaceId} = req.body
+    const { userId, id } = req.params;
+    const toDelete = await FavoriteRestaurant.findOne({
+      where: {
+        userId: userId,
+        restSpaceId: id,
+      },
+    });
+    const deleted = await toDelete.destroy();
+    res.send(deleted);
   } catch (e) {
     console.log(e);
   }
